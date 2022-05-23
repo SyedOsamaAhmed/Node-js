@@ -1,3 +1,11 @@
 #Node Js
 
-This repository contains basics of node js like file systems,file crud operations,promises and basic server creation and setup.
+In this course, I learned following concepts of Node js:
+
+##Concepts:
+
+* Event emitter
+* Basic server creation
+* File systems
+* File CRUD Operations
+* Promises
