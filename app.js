@@ -1,11 +1,15 @@
-const EventEmitter = require('events');
-
-const customEvent = new EventEmitter();//instance for event class
-
-// these events can be called as many times for different logics. order matters.
-customEvent.on('response',(name,age)=>{
-  console.log(`data recieved: ${name} age:${age}`)
-})
+var http=require('http');
+var fs=require('fs');
 
 
-customEvent.emit('response','Osama',23);
+http.createServer(
+    (req,res)=>{
+    //    res.end(fs.readFileSync('./content/big.txt','utf8')) 
+
+    const fileStream=fs.createReadStream('./content/big.txt','utf8');
+    fileStream.on('open',()=>{
+        fileStream.pipe(res)
+    })
+    fileStream.on('error',(err)=>console.log(err))
+    }
+).listen(5000);
