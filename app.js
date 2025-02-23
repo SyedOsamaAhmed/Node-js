@@ -1,19 +1,29 @@
 // built-in modules
 
-const os = require("os");
+const { readFile, writeFile } = require("fs");
 
-//current user information
-console.log(os.userInfo());
+readFile("./content/first.txt", "utf-8", (err, res) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
 
-//total system running time
-
-console.log(`System running time : ${os.uptime()} seconds`);
-
-const currentOs = {
-  name: os.type(),
-  release: os.release(),
-  totalMem: os.totalmem(),
-  freeMem: os.freemem(),
-};
-
-console.log(currentOs);
+  const first = res;
+  readFile("./content/second.txt", "utf-8", (err, res) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    const second = res;
+    writeFile(
+      "./content/result-async.txt",
+      `Here is the result of asynchronus reading: ${first}, ${second} `,
+      () => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+      }
+    );
+  });
+});
